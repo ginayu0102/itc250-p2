@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Food Truck</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Mario's Rolling Pizza by the Slice!</h1>
+  <div class="container">
+  <div class="jumbotron">
+<form role="form" action="display_total.php" method="post">
+  <div class="form-group">
+      <div class="container-fluid">
+          <h3> Choose your slice </h3>
+            <p>$1 per slice for cheese</p>
+          <p>$1.25 per slice for pepperoni</p>
+          <p>$1.50 per slice for mushrooms</p>
+          <div class="checkbox">
+            <label><input type="checkbox" name="slice[]" value="cheese">Just Cheese</label>
+            <label><input type="checkbox" name="slice[]" value="pepperoni">Pepperoni</label>
+            <label><input type="checkbox" name="slice[]" value="mushroom">Mushroom!</label>
+        </div>
+        
+        <h3> Extra Toppings??? </h3>
+        <p>&cent;50 extra</p>
+          <div class="checkbox">
+        <label><input type="checkbox" name="top[]" value="extra anchovie">Anchovie</label>
+        <label><input type="checkbox" name="top[]" value="extra cheese">Extra cheese</label>
+        <label><input type="checkbox"name="top[]" value="More Mushrooms!">More Mushrooms!</label>
+          </div>
+   
+          <h3> Something to drink???</h3>
+          <p> $1 more</p>
+        <div class="checkbox">
+        <label><input type="checkbox" name="drink[]" value="coke">Coke</label>
+        <label><input type="checkbox" name="drink[]"  value="pepsi">Pepsi</label>
+        <label><input type="checkbox" name="drink[]"  value="water" >Water</label>
+    </div>
+   
+    <div>
+    <button type="submit" class="btn btn-default" value="show">Submit</button>
+    </div>
+      </div>
+    </div>
+</form>
+      </div>
+    </div>
+</body>
+</html>
