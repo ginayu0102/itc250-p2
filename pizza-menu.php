@@ -52,7 +52,7 @@ if( count( $items ) )
    <h1>Curbside Pizza</h1>
        </div>          
                <!--start form and set checkboxes-->
-                    <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <form role="form" action="display-pizza-order.php" method="post">
                         <h2> Pizza : All pizzas are large (16")</h2>
                      <!--appied bootstrap stying no need for separate css page-->  
                         
@@ -115,13 +115,8 @@ if( count( $items ) )
                     
                 <input type="submit" class="btn btn-info btn-md" value="Place Order">
           </form>
-     
-       <!--End of Form then echo order-->
-       <div class="alert alert-info"><p><?= $info ?></p>
-       </div>
+
      
     </div>
 </body>
 </html>
-
-
