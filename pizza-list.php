@@ -1,99 +1,127 @@
-<?php 
+<?php
+$total = 0;
+$cost =0;
+$items = [];
+$tax = .09;
+$info  = 'Would you like to order something?';
 
-//pizza-list.php
+// form submitted 
+if( !empty( $_POST['choice'] )) /*Took out && is_array( $_POST['choice'] )*/
+       {
+           // loop all item choices
+           foreach( $_POST['choice'] as $item )
+             {
+               // filter item info
+                $name     = trim( $item['name'] );
+                $price    = $item['price']; //Took out floatval
+                $quantity = $item['quantity']; //Took out intval
+               
+               // only add if item was checked and quantity is more than 0
+                if( isset( $item['checked'] ) && $quantity > 0 )
+                {
+                    $items[] = $quantity .' '. $name;
+                    $cost  += $price * $quantity;
+                    $tax_total = $tax * $cost; //added tax total
+                    $total = $cost + $tax * $cost;
+                } 
+            }
+        }
 
-$pepperoni = 'Pepperoni';
-$sausage = 'Sausage';
-$cheese = 'Cheese';
-$salad = 'Salad';
-$breadstick = 'Breadstick';
-$sides_price = 6;
-$p_price = 15;
-$s_price = 15;
-$c_price = 13;
-/*
-*not used yet
-$p_qty = $_POST['p_qty'];
-$s_qty = $_POST['s_qty'];
-$c_qty = $_POST['c_qty'];
-$salad_qty = $_POST['salad_qty'];
-$bs_qty = $_POST['bs_qty'];
-*/
-
-function ShowOrder() //quantity need to be added
-{
-    if(isset($_POST['check1']))
-    {
-        echo $pepperoni . $p_price ;
-    }else if(isset($_POST['check2']))
-    {
-        echo $sausage . $s_price ;
-    }else if(isset($_POST['check3']))
-    {
-        echo $cheese . $c_price ;
-    }else if(isset($_POST['check4']))
-    {
-        echo $salad  . $sides_price ;
-    }else if(isset($_POST['check5']))
-    {
-        echo $breadstick . $sides_price ;
-    }else{
-        echo 'No items was selected!';
+// update info if items were selected show sales tax and total after tax added
+if( count( $items ) )
+    {      //bootstrap style on the output info
+           $info = "<div class='alert alert-success'>".'You ordered ('.implode( ', ', $items ).') '.'<br>'
+               .'Subtotal: $ '.$cost.'<br>'.'Tax: $'.$tax_total.'<br/>'.
+               'Total : $ ' .$total. "</div>";
     }
-
-}
+    
 ?>
-
-
+<!DOCTYPE html>
 <html>
-    <head>
-      <title>Food Truck</title>
+<head>
+    <title>Pizza Truck Order Form</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
-    
-    <body>
-         <h1>Pizza Pizza Pizza!</h1>
+<body>
+  <div class="container">
+  <div class="page-header">     
+   <h1>Curbside Pizza</h1>
+       </div>          
+               <!--start form and set checkboxes-->
+                    <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <h2> Pizza : All pizzas are large (16")</h2>
+                     <!--appied bootstrap stying no need for separate css page-->  
+                        
+                    <div class="well"> 
+                        <h3>Pepperoni</h3>
+                        <p>Description: Best pepperoni pizza in town!</p>
+                        <p>Price: $15.00</p>
+                        <label><input type="checkbox" name="choice[0][checked]" > Select this item</label><br/>
+                        <label>Quantity <input type="number" name="choice[0][quantity]"  min="1" max="10"></label>
+                        <input type="hidden" name="choice[0][price]" value="15">
+                        <input type="hidden" name="choice[0][name]" value="Pepperoni Pizza">
+           
+                    </div>
+                   
+                    <div class="well "> 
+                        <h3>Sausage</h3>
+                        <p>Description: Homemade sausage!</p>
+                        <p>Price: $15.00</p>
+                        <label><input type="checkbox" name="choice[1][checked]" > Select this item</label><br/>
+                        <label>Quantity <input type="number" name="choice[1][quantity]"  min="1" max="10"></label>
+                        <input type="hidden" name="choice[1][price]" value="15">
+                        <input type="hidden" name="choice[1][name]" value="Sausage Pizza">
+        
+                    </div>
+                    
+                    <div class="well"> 
+                        <h3>Cheese Lover</h3>
+                       <p>Description: Simply cheese with fresh tomato sauce</p>
+                       <p>Price: $13.00</p>
+                        <label><input type="checkbox" name="choice[2][checked]" > Select this item</label><br/>
+                        <label>Quantity <input type="number" name="choice[2][quantity]"  min="1" max="10"></label>
+                        <input type="hidden" name="choice[2][price]" value="15">
+                        <input type="hidden" name="choice[2][name]" value="Cheese Pizza">
+        
+                    </div>
+                    
+                   <div class="page-header">  <h3> Sides </h3></div>
+
+                    <div class="well"> 
+                        <h3>Caesar Salad</h3>
+                            <p>Description: Signature cesar salad! Great for a lunch or for sharing.</p>
+                            <p>Price: $6.00</p>
+                            <label><input type="checkbox" name="choice[3][checked]" > Select this item</label><br/>
+                            <label>Quantity <input type="number" name="choice[3][quantity]"  min="1" max="10"></label>
+                            <input type="hidden" name="choice[3][price]" value="6" />
+                            <input type="hidden" name="choice[3][name]" value="Caesar Salad" />
          
-        <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-          
-                  <h3> Pizza </h3>
-                
-                    <label><input type="checkbox" name="check1" >Pepperoni</label>
-                      <p>Description: Best pepperoni pizza in town!</p>
-                      <p>Price: $15.00</p><br/>
-                      
-                    <label><input type="checkbox" name="check2" >Sausage</label>
-                      <p>Description: Homemade sausage!</p>
-                      <p>Price: $15.00</p><br/>
-                      
-                    <label><input type="checkbox" name="check3" >Cheese</label>
-                      <p>Description: Simply cheese with fresh tomato sauce</p>
-                      <p>Price: $13.00</p><br/>
-                                                        
-              
+                    </div>
+                    
+                    <div class="well">
+                        <h3> Breadsticks: Basket of (3)</h3>
+                        <p>Description: freshly baked!</p>
+                        <p>Price: $6.00</p>
+                        <label><input type="checkbox" name="choice[4][checked]" > Select this item</label><br/>
+                        <label>Quantity <input type="number" name="choice[4][quantity]"  min="1" max="10"></label>
+                        <input type="hidden" name="choice[4][price]" value="6" />
+                        <input type="hidden" name="choice[4][name]" value="Breadsticks" />
 
-                <h3> Sides </h3>
-                 
-                    <label><input type="checkbox" name="check4" >Cesar Salad</label>
-                      <p>Description: Signature cesar salad!</p>
-                      <p>Price: $6.00</p><br/>
-                    <label><input type="checkbox" name="check5" >Breadstick</label>
-                      <p>Description: freshly baked!</p>
-                      <p>Price: $6.00</p><br/>
-
-
-                
-                    <button type="submit" name="button" value="View Order">View Order</button> <!--not sure if this should be button tag or input tag-->
+                    </div>          
+                    
+                <input type="submit" class="btn btn-info btn-md" value="Place Order">
+          </form>
      
-              
-            
-            <?php if(isset($_POST['button'])) { 
-                echo ShowOrder();
-    
-                } ?>
-            
-        </form>
-    
-    </body>
+       <!--End of Form then echo order-->
+       <div class="alert alert-info"><p><?= $info ?></p>
+       </div>
+     
+    </div>
+</body>
 </html>
 
 
