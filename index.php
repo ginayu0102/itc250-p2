@@ -1,33 +1,27 @@
 <?php
-
 //index.php
-
 include 'item-array.php';
 
 
-function ShowMenu()
-{
-    global $items;
+
     
-    foreach($items as $item)
+      
+    foreach($items as $items)
     {
          
-        echo '<h3>'.$item->ItemName.'</h3>'.'<p>'. $item->ItemDescription .'</p>'.'<p>'. $item->ItemPrice .'</p>' . '<label><input type="checkbox" name="selected" > Select this item</label><br/>' . '<label>Quantity<input type="number" name="quantity"  min="1" max="10"></label><br>' ;
+        echo '<h3>'.$item->ItemName.'</h3>'.'<p>'. $item->ItemDescription .'</p>'.'<p>'. $item->ItemPrice .'</p>' . '<label><input type="checkbox" name="selected" > Select items</label><br/>' . '<label>Quantity<input type="number" name="quantity"  min="1" max="10"></label><br>' ;
         
-        
+          echo '<input type="submit" value="Submit">';
     }
      
-}
 
 //echo ShowMenu();
-
-
 function ShowOrder()
 {
     
-    global $items;
+  
     
-    if (isset( $_POST['selected'] && $_POST['quantity']> 0 )) 
+    if (isset( $_POST['selected']) &&( $_POST['quantity']> 0 )) 
        {
             $quantity = $_POST['quantity']; 
             $tax = .09;
@@ -44,5 +38,4 @@ function ShowOrder()
         }
     
 }
-
 ?>
