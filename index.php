@@ -6,7 +6,7 @@ include 'item-array.php';
 
     
       
-    foreach($items as $items)
+    foreach($items as $item)
     {
          
         echo '<h3>'.$item->ItemName.'</h3>'.'<p>'. $item->ItemDescription .'</p>'.'<p>'. $item->ItemPrice .'</p>' . '<label><input type="checkbox" name="selected" > Select items</label><br/>' . '<label>Quantity<input type="number" name="quantity"  min="1" max="10"></label><br>' ;
