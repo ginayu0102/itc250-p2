@@ -1,9 +1,6 @@
 <?php
-
 //index.php
-
 include 'item-array.php';
-
 //I put ShowMenu in a function just so we can call the function in html form and continue using existing stylesheet.
 function ShowMenu()
 {
@@ -12,20 +9,26 @@ function ShowMenu()
     foreach($items as $item)
     {
          
-        echo '<h3>'.$item->ItemName.'</h3>'.'<p>'. $item->ItemDescription .'</p>'.'<p>'. $item->ItemPrice .'</p>' . '<label><input type="checkbox" name="selected" > Select this item</label><br/>' . '<label>Quantity<input type="number" name="quantity"  min="1" max="10"></label><br>' ;
+        echo '<h3>'.
+            $item->ItemName.
+            '</h3>'.
+            '<p>'. 
+            $item->ItemDescription .
+            '</p>'.'<p>'. 
+            $item->ItemPrice .
+            '</p>' . 
+            '<label><input type="checkbox" name="selected[]" > Select this item</label><br/>' .
+            '<label>Quantity<input type="number" name="quantity"  min="1" max="10"></label><br>' ;
         
         
     }
      
 }
-
-
 //there are errors in this function
 function ShowOrder()
 {
     
     global $items;
-
     $quantity = $_POST['quantity']; 
     $tax = .09;
         
@@ -36,19 +39,28 @@ function ShowOrder()
                 if (isset($_POST['selected']) && $_POST['quantity']> 0 ) 
                 {
                     $displayItem = $quantity .' '. $item->ItemName;
-                    $cost  += $item->ItemPrice * $quantity;
+                    $cost  = $item->ItemPrice * $quantity;
                     $tax_total = $tax * $cost;
                     $total = $cost + $tax * $cost;
                     
                 }
             }
-
     }
             
-    echo '<div class="alert alert-success">'.'You ordered ('.implode( ', ', $displayItem ).') '.'<br>'.'Subtotal: $ '.$cost.'<br>'.'Tax: $'.$tax_total.'<br/>'.'Total : $ ' .$total. "</div>";
+    echo '<div class="alert alert-success">'.
+        'You ordered '.
+        $displayItem .
+        '<br>'.
+        'Subtotal: $ '.
+        $cost.'<br>'.
+        'Tax: $'.
+        $tax_total.
+        '<br/>'.
+        'Total : $ ' .
+        $total. 
+        "</div>";
 }
     
-
 ?>
 
 
