@@ -40,7 +40,11 @@ function ShowOrder()
         
         echo '<div class="alert alert-success">'.'Subtotal: $ '.$cost.'<br>'.'Tax: $'.$tax_total.'<br/>'.'Total : $ ' .$total. "</div>";
 
-    }//End if
+    } 
+    else
+        {
+        echo "There seems to be an error: please order something";
+        }//End if
 
 /* NOT WORKING
     if(isset($_POST['quantity'])) 
